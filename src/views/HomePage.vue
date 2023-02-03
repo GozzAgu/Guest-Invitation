@@ -18,17 +18,13 @@
                 </router-link>
             </div>
         </div>
+         <n-button strong secondary round type="success" class="mb-4" @click="showModal = true"> 
+            NEW GUEST 
+        </n-button>
 
-        <n-tooltip placement="bottom" trigger="hover">
-            <template #trigger>
-                <n-button strong secondary round type="success" class="mb-4" @click="showModal = true"> 
-                    NEW GUEST 
-                </n-button>
-            </template>
-            <span> Enter guest details </span>
-        </n-tooltip>
+        <CodeModal v-if="showModal" @close="showModal = false"/>
 
-        <n-modal
+        <!-- <n-modal
             :style="{ width: '70%' }"
             v-model:show="showModal"
             preset="dialog"
@@ -49,7 +45,7 @@
                     />
                 </n-space>
             </div>
-        </n-modal>
+        </n-modal> -->
 
         <n-card>
             <n-row class="mb-3">
@@ -119,7 +115,8 @@ import { useStore } from '@/store/store';
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth'
 import { ref, onMounted, computed } from 'vue'
 import { useRouter } from 'vue-router';
-import { NButton, NModal, NInput, NSpace, NSelect, NTooltip, NRow, NCol, NStatistic, NCard } from 'naive-ui'
+import { NButton, NInput, NSpace, NRow, NCol, NStatistic, NCard } from 'naive-ui'
+import CodeModal from '@/components/CodeModal.vue';
 
 let auth;
 onMounted(() => {
@@ -134,43 +131,43 @@ onMounted(() => {
 });
     
 const showModal = ref(false);
-const selectOptions = ref([
-    {
-        label: 'male',
-        value: 'male'
-    },
-    {
-        label: 'female',
-        value: 'female'
-    }
-]);
+// const selectOptions = ref([
+//     {
+//         label: 'male',
+//         value: 'male'
+//     },
+//     {
+//         label: 'female',
+//         value: 'female'
+//     }
+// ]);
 const checked = ref([]);
-const code = ref('');
+// const code = ref('');
 
-const getTime = () => {
-    const date =  ref(new Date());
-    const time = ref(date.value.getHours() + ':' + date.value.getMinutes() + ':' + date.value.getSeconds());
-    return time
-};
+// const getTime = () => {
+//     const date =  ref(new Date());
+//     const time = ref(date.value.getHours() + ':' + date.value.getMinutes() + ':' + date.value.getSeconds());
+//     return time
+// };
 
-const getCode = () => {
-    if(newVisitor.value.name.length > 2) {
-        code.value = Math.floor(Math.random() * 10000) + 1;
-        newVisitor.value.code = code.value;
-        newVisitor.value.time = getTime();
-        newVisitor.value.gender = selectOptions.value.value;
+// const getCode = () => {
+//     if(newVisitor.value.name.length > 2) {
+//         code.value = Math.floor(Math.random() * 10000) + 1;
+//         newVisitor.value.code = code.value;
+//         newVisitor.value.time = getTime();
+//         newVisitor.value.gender = selectOptions.value.value;
 
-        visitors.value.push(newVisitor.value);
-        newVisitor.value = ''
-    }
-}
+//         visitors.value.push(newVisitor.value);
+//         newVisitor.value = ''
+//     }
+// }
 const search = ref('');
-const newVisitor = ref({
-    name: '',
-    code: '',
-    gender: '',
-    time: ''
-});
+// const newVisitor = ref({
+//     name: '',
+//     code: '',
+//     gender: '',
+//     time: ''
+// });
 
 const visitors = ref([]);
 
