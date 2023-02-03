@@ -12,13 +12,13 @@
                 <option v-for="option in options" :key="option">{{ option.text }}</option>
             </select>
         </div>
-        <!-- <h3>Code: {{ newVisitor.code }}</h3> -->
-        <button @click="getCode" type="button" id="btn" class="btn btn-success ms-auto me-auto mb-4 col-4">Invite</button>
+        <n-button @click="getCode" type="button" id="btn" class="btn btn-success ms-auto me-auto mb-4">Invite</n-button>
     </div> 
 </template>
 
 <script setup>
 import { ref, defineEmits } from 'vue'
+import { NButton } from 'naive-ui'
 
 const emit = defineEmits(['onSubmit', 'close'])
 const code = ref('');
@@ -54,9 +54,11 @@ const getCode = () => {
         newVisitor.value.code = code.value;
         newVisitor.value.time = getTime();
         newVisitor.value.gender = selected.value;
-
+    
         emit('onSubmit', newVisitor.value);
         emit('close')
+    } else {
+        alert('Please input something')
     }
 }
 
@@ -110,15 +112,15 @@ const close = () => {
     border-bottom: 2px solid rgb(109, 214, 109);
 }
 
-#btn {
-    background-color: rgb(109, 214, 109);
-    border: none;
-}
+// #btn {
+//     background-color: rgb(109, 214, 109);
+//     border: none;
+// }
 
-#btn:hover {
-    background-color: rgb(78, 163, 78);
-    border: none;
-}
+// #btn:hover {
+//     background-color: rgb(78, 163, 78);
+//     border: none;
+// }
 
 .close {
     cursor: pointer;
