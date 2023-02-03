@@ -3,7 +3,7 @@
     <div class="mod shadow-lg card p-3 col-8 col-lg-4 ms-auto me-auto">
         <div class="d-flex mb-2">
             <h5 class="mt-2 ms-3 mb-3">Guest code</h5>
-            <i @click="close" class="ri-close-circle-line fs-3 ms-auto me-3 mb-3"></i>
+            <i @click="close" class="close ri-close-circle-line fs-3 ms-auto me-3 mb-3"></i>
         </div>
         <div class="d-flex mb-3">
             <input id="input" placeholder="Guest name..." class="col-5 ms-auto me-auto mb-3" v-model="newVisitor.name"/>
@@ -13,7 +13,7 @@
             </select>
         </div>
         <!-- <h3>Code: {{ newVisitor.code }}</h3> -->
-        <button @click="getCode" type="button" id="btn" class="btn btn-success ms-3 mb-4">Invite</button>
+        <button @click="getCode" type="button" id="btn" class="btn btn-success ms-auto me-auto mb-4 col-4">Invite</button>
     </div> 
 </template>
 
@@ -90,19 +90,37 @@ const close = () => {
 
 @keyframes animatetop {
   from {top: -250px; opacity: 0}
-  to {top: 450px; opacity: 1}
+  to {top: 350px; opacity: 1}
 }
 
 #input {
     outline: none;
+    border: none;
+    background-color: rgb(240, 240, 240);
 }
 
-#input:focus {
+#input:hover {
     outline: none;
     border: 1px solid rgb(109, 214, 109);
 }
 
+#input:focus {
+    outline: none;
+    border: none;
+    border-bottom: 2px solid rgb(109, 214, 109);
+}
+
 #btn {
-    width: 30%;
+    background-color: rgb(109, 214, 109);
+    border: none;
+}
+
+#btn:hover {
+    background-color: rgb(78, 163, 78);
+    border: none;
+}
+
+.close {
+    cursor: pointer;
 }
 </style>
