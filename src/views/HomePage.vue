@@ -26,27 +26,34 @@
 
         <n-card>
             <n-row class="mb-3">
-            <n-col :span="12">
-            <n-statistic label="Total Guests">
-                <template #prefix>
-                    <i class="ri-user-fill"></i>
-                </template>
-                <template #suffix>
-                    {{ visitors.length }}
-                </template>
-            </n-statistic>
-            </n-col>
+                <n-col :span="8">
+                    <n-statistic label="Total Guests">
+                        <template #prefix>
+                            <i class="ri-user-fill"></i>
+                        </template>
+                        <template #suffix>
+                            {{ visitors.length }}
+                        </template>
+                    </n-statistic>
+                </n-col>
 
-            <n-col :span="12">
-               
-            <n-statistic label="Selected Guests">
-                <template #prefix>
-                    <i class="ri-user-follow-fill"></i>
-                </template>
-                {{checked.length}}
-            </n-statistic>
-            </n-col>
-        </n-row>
+                <n-col :span="8">
+                    <n-statistic label="Convey Guest">
+                        <template #prefix>
+                            <i @click="conveyVisitor" class="convey ri-user-shared-line"></i>
+                        </template>
+                    </n-statistic>
+                </n-col>
+
+                <n-col :span="8">
+                    <n-statistic label="Selected Guests">
+                        <template #prefix>
+                            <i class="ri-user-follow-fill"></i>
+                        </template>
+                        {{checked.length}}
+                    </n-statistic>
+                </n-col>
+            </n-row>
         </n-card>
 
         <div class="head">
@@ -140,6 +147,12 @@ const filterVisitors = computed(() => {
     });
 });
 
+const conveyVisitor = () => {
+    if(checked.value) {
+        alert(checked.value.length + ' ' + 'visitors were sent to the security')
+    }
+}
+
 </script>
 
 <style scoped lang="scss">
@@ -173,5 +186,9 @@ const filterVisitors = computed(() => {
 
 .link {
     text-decoration: none;
+}
+
+.convey {
+    cursor: pointer;
 }
 </style>
