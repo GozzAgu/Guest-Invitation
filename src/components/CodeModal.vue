@@ -1,5 +1,5 @@
 <template>
-    <div class="overlay" @click="hideForm"></div>
+    <div class="overlay" @click="close"></div>
     <div class="mod shadow-lg card p-3 col-8 col-lg-4 ms-auto me-auto">
         <div class="d-flex mb-2">
             <h5 class="mt-2 ms-3 mb-3">Guest code</h5>
