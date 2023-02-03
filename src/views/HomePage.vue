@@ -149,7 +149,7 @@ const filterVisitors = computed(() => {
 
 const conveyVisitor = () => {
     if(checked.value) {
-        alert(checked.value.length + ' ' + 'visitors were sent to the security')
+        alert('visitor(s) sent' + ' : ' + checked.value.length)
     }
 }
 
