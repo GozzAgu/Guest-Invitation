@@ -24,29 +24,6 @@
 
         <CodeModal v-if="showModal" @close="showModal = false"/>
 
-        <!-- <n-modal
-            :style="{ width: '70%' }"
-            v-model:show="showModal"
-            preset="dialog"
-            title="Dialog"
-            positive-text="Invite"
-            @positive-click="getCode"
-        >
-            <template #header>
-                <div class="mt-2">Guest Details</div>
-            </template>
-            <div class="mt-5">
-                <n-space vertical>
-                    <n-input v-model:value="newVisitor.name" type="text" placeholder="Guest name"/>
-                    <n-select
-                    placeholder="Gender"
-                    :options="selectOptions"
-                    v-model:value="selectOptions.value"
-                    />
-                </n-space>
-            </div>
-        </n-modal> -->
-
         <n-card>
             <n-row class="mb-3">
             <n-col :span="12">
@@ -118,6 +95,14 @@ import { useRouter } from 'vue-router';
 import { NButton, NInput, NSpace, NRow, NCol, NStatistic, NCard } from 'naive-ui'
 import CodeModal from '@/components/CodeModal.vue';
 
+const showModal = ref(false);
+const checked = ref([]);
+const search = ref('');
+const visitors = ref([]);
+const isLoggedIn = ref(false);
+const router = useRouter();
+const store = useStore();
+
 let auth;
 onMounted(() => {
     auth = getAuth();
@@ -130,51 +115,6 @@ onMounted(() => {
     });
 });
     
-const showModal = ref(false);
-// const selectOptions = ref([
-//     {
-//         label: 'male',
-//         value: 'male'
-//     },
-//     {
-//         label: 'female',
-//         value: 'female'
-//     }
-// ]);
-const checked = ref([]);
-// const code = ref('');
-
-// const getTime = () => {
-//     const date =  ref(new Date());
-//     const time = ref(date.value.getHours() + ':' + date.value.getMinutes() + ':' + date.value.getSeconds());
-//     return time
-// };
-
-// const getCode = () => {
-//     if(newVisitor.value.name.length > 2) {
-//         code.value = Math.floor(Math.random() * 10000) + 1;
-//         newVisitor.value.code = code.value;
-//         newVisitor.value.time = getTime();
-//         newVisitor.value.gender = selectOptions.value.value;
-
-//         visitors.value.push(newVisitor.value);
-//         newVisitor.value = ''
-//     }
-// }
-const search = ref('');
-// const newVisitor = ref({
-//     name: '',
-//     code: '',
-//     gender: '',
-//     time: ''
-// });
-
-const visitors = ref([]);
-
-const isLoggedIn = ref(false);
-const router = useRouter();
-const store = useStore();
-
 const handlesignOut = () => {
     signOut(auth)
     .then(() => {
@@ -195,6 +135,7 @@ const filterVisitors = computed(() => {
         return visitor.name.match(search.value);
     });
 });
+
 </script>
 
 <style scoped lang="scss">
