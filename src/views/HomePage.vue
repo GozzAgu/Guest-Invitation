@@ -22,7 +22,7 @@
             NEW GUEST 
         </n-button>
 
-        <CodeModal v-if="showModal" @close="showModal = false"/>
+        <CodeModal v-if="showModal" @close="showModal = false" @onSubmit="addNewVisitor"/>
 
         <n-card>
             <n-row class="mb-3">
@@ -128,6 +128,10 @@ const del = (index) => {
         visitors.value.splice(index, 1);
         checked.value.splice(index, 1);
     }
+}
+
+const addNewVisitor = (newVisitor) => {
+    visitors.value.push(newVisitor)
 }
 
 const filterVisitors = computed(() => {
