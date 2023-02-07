@@ -24,7 +24,7 @@
 
         <CodeModal v-if="showModal" @close="showModal = false" @onSubmit="addNewVisitor"/>
 
-        <n-card>
+        <n-card class="bg-light">
             <n-row class="mb-3">
                 <n-col :span="8">
                     <n-statistic label="Total Guests">
@@ -56,38 +56,40 @@
             </n-row>
         </n-card>
 
-        <div class="head">
-            <h3 class="mt-3 mb-4 text-start"><i class="ri-draft-line"></i> Guest Log </h3>
+        <n-card class="mt-4 bg-light">
+            <div class="head">
+                <h3 class="mt-3 mb-4 text-start"><i class="ri-draft-line"></i> Guest Log </h3>
 
-            <n-space class="mt-4" vertical>
-                <n-input v-model:value="search" placeholder="Search for guest" />
-            </n-space>
-        </div>
+                <n-space class="mt-4" vertical>
+                    <n-input v-model:value="search" placeholder="Search for guest" />
+                </n-space>
+            </div>
 
-        <div class="mt-1 shadow">
-            <table class="table table-striped table-hover">
-                <thead class="bg-secondary text-light">
-                    <tr>
-                        <th scope="col"></th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Code</th>
-                        <th scope="col">Gender</th>
-                        <th scope="col">Time</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody v-for="(visitor, index) in filterVisitors" :key="visitor">
-                    <tr class="mb-5">
-                        <td class="pt-3"><input :value="visitor" v-model="checked" type="checkbox"/></td>
-                        <td class="pt-3">{{ visitor.name }}</td>
-                        <td class="pt-3">{{ visitor.code }}</td>
-                        <td class="pt-3">{{ visitor.gender }}</td>
-                        <td class="pt-3">{{ visitor.time}}</td>
-                        <td> <button class="btn" @click="del(index)"><i class="ri-delete-bin-6-fill fs-9 text-danger"></i></button></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+            <div class="mt-1 shadow">
+                <table class="table table-striped table-hover">
+                    <thead class="bg-secondary text-light">
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Code</th>
+                            <th scope="col">Gender</th>
+                            <th scope="col">Time</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody v-for="(visitor, index) in filterVisitors" :key="visitor">
+                        <tr class="mb-5">
+                            <td class="pt-3"><input :value="visitor" v-model="checked" type="checkbox"/></td>
+                            <td class="pt-3">{{ visitor.name }}</td>
+                            <td class="pt-3">{{ visitor.code }}</td>
+                            <td class="pt-3">{{ visitor.gender }}</td>
+                            <td class="pt-3">{{ visitor.time}}</td>
+                            <td> <button class="btn" @click="del(index)"><i class="ri-delete-bin-6-fill fs-9 text-danger"></i></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </n-card>   
     </div>
     <footer>
 
