@@ -4,7 +4,10 @@ import App from './App.vue';
 import router from './router';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap";
-import { initializeApp } from 'firebase/app';
+// import { initializeApp } from 'firebase/app';
+import {initializeApp} from 'firebase/app'
+import 'firebase/firestore'
+import { getFirestore } from 'firebase/firestore';
 
 const config = {
   apiKey: "AIzaSyC_F1X2K1fquVnkoixDBTKPn4Ql7xE9ZQw",
@@ -21,5 +24,9 @@ createApp(App)
 .use(createPinia())
 .mount('#app')
 
-initializeApp(config);
+const firebase = initializeApp(config);
+
+const db = getFirestore(firebase);
+
+export {db}
 

@@ -1,19 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
 // import { getAuth, onAuthStateChanged } from 'firebase/auth'
-// import HomeView from '../views/HomeView.vue'
-import Signup from '../views/SignUp.vue'
-import Signin from '../views/SignIn.vue'
-import Chat from '../views/Chat.vue'
-import ForgotPassword from '../views/ForgotPassword.vue'
-import HomePage from '../views/HomePage.vue'
+import Signup from '../views/UserViews/SignUp.vue'
+import Signin from '../views/UserViews/SignIn.vue'
+import Chat from '../views/UserViews/Chat.vue'
+import ForgotPassword from '../views/UserViews/ForgotPassword.vue'
+import HomePage from '../views/UserViews/HomePage.vue'
+import GuestList from '../views/CheckPointViews/GuestList.vue'
 
 const routes = [
-  // {
-  //   path: '/',
-  //   name: 'home',
-  //   component: HomeView
-  // },
-
   {
     path: '/signup',
     name: 'signup',
@@ -40,6 +34,11 @@ const routes = [
     path: '/home',
     name: 'home',
     component: HomePage
+  },
+  {
+    path: '/guest',
+    name: 'guest',
+    component: GuestList
   },
 ]
 

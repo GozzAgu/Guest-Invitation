@@ -3,21 +3,24 @@
         <div>
             <img class="logo" src="@/assets/logo.png"/>
         </div>
-        <form @submit.prevent="signInWithGoogle" class="form">
-            <h1 class="h1 mb-3 fw-normal">Welcome</h1>
+        <form @submit.prevent="signIn" class="form">
+            <h1 class="h1 mb-3 fw-normal">Sign In</h1>
             <div class="name">
                 <input v-model="store.name" placeholder="Your name..." type="text" class="form-control" id="floatingInput">
                 <input v-model="store.email" placeholder="Your email @.com..." type="email" class="form-control" id="floatingInput">
                 <input v-model="store.password" placeholder="Your password..." type="password" class="form-control" id="floatingInput">
             </div>
 
-            <button @click="signUp" class="w-100 btn btn-sm btn-info text-light" type="submit">
-                Sign Up 
+            <button class="w-100 btn btn-sm btn-info text-light" type="submit">
+                Sign In 
             </button>
-            <router-link to="/signin">
-                <button class="w-100 btn btn-sm btn-secondary" type="submit">
-                    Already have an account?
+            <router-link to="/signup">
+                <button class="w-100 btn btn-sm btn-info text-light" type="submit">
+                    Don't have an account ?
                 </button>
+            </router-link>
+            <router-link to="/forgot">
+                <p>Forgot password? </p>
             </router-link>
             <p v-if="errorText" class="error">{{errorText}}</p>
         </form>
@@ -28,30 +31,38 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router';
 import { useStore } from '@/store/store';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 
-const router = useRouter()
-const store = useStore()
+const router = useRouter();
+const store = useStore();
+const errorText = ref(false);
 
-const errorText = ref(false)
-
-const signUp = () => {
-    createUserWithEmailAndPassword(getAuth(), store.email, store.password)
+const signIn = () => {
+    const auth = getAuth(); 
+    signInWithEmailAndPassword(auth, store.name, store.email, store.password)
     .then((data) => {
         console.log(data);
-        router.push({name:'home', 
-                    params: {name: store.name}
-        })
+        console.log(auth.currentUser);
+        router.push('/home');
     })
     .catch((e) => {
-        console.log(e)
+        console.log(e.code);
         switch(e.code) {
+            // case 'auth/invalid-email':
+            //     errorText.value = 'Invalid email';
+            //     break;
+            // case 'auth/user-not-found':
+            //     errorText.value = 'No User';
+            //     break;
+            // case 'auth/wrong-password':
+            //     errorText.value = 'Incorrect password';
+            //     break;
             default:
-                errorText.value = 'Fill in your credentials';
+                errorText.value = 'Incorrect email or password';
                 break;
         }
-    })
-}
+    });
+};
 </script>
 
 <style scoped lang="scss">
