@@ -56,7 +56,7 @@
             </n-row>
         </n-card>
 
-        <n-card class="mt-4 bg-light">
+        <div class="mt-4 bg-light p-2">
             <div class="head">
                 <h3 class="mt-3 mb-4 text-start"><i class="ri-draft-line"></i> Guest Log </h3>
 
@@ -64,7 +64,6 @@
                     <n-input v-model:value="search" placeholder="Search for guest" />
                 </n-space>
             </div>
-
             <div class="mt-1 shadow">
                 <table class="table table-striped table-hover">
                     <thead class="bg-secondary text-light">
@@ -89,7 +88,7 @@
                     </tbody>
                 </table>
             </div>
-        </n-card>   
+        </div>
     </div>
     <footer>
 
