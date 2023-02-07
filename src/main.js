@@ -4,7 +4,7 @@ import App from './App.vue';
 import router from './router';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap";
-import { initializeApp } from 'firebase/app'
+import { initializeApp } from 'firebase/app';
 
 const config = {
   apiKey: "AIzaSyC_F1X2K1fquVnkoixDBTKPn4Ql7xE9ZQw",
