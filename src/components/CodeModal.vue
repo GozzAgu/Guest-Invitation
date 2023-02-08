@@ -21,6 +21,7 @@ import { ref, defineEmits } from 'vue'
 import { NButton } from 'naive-ui'
 
 const emit = defineEmits(['onSubmit', 'close'])
+
 const code = ref('');
 
 const selected = ref('')

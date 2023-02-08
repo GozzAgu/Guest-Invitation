@@ -22,7 +22,7 @@
             NEW GUEST 
         </n-button>
 
-        <CodeModal v-if="showModal" @close="showModal = false" @onSubmit="addNewVisitor"/>
+        <CodeModal v-if="showModal" @close="showModal = false" @onSubmit="addNewVisitor" />
 
         <n-card class="bg-light">
             <n-row class="mb-3">
@@ -102,7 +102,7 @@ import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router';
 import { NButton, NInput, NSpace, NRow, NCol, NStatistic, NCard } from 'naive-ui'
 import CodeModal from '@/components/CodeModal.vue';
-import { collection, getDocs, addDoc } from 'firebase/firestore';
+import { collection, addDoc, getDocs } from 'firebase/firestore';
 import { db } from '@/main.js';
 
 const showModal = ref(false);
@@ -148,11 +148,15 @@ const del = (index) => {
     }
 }
 
-const addNewVisitor = async (newVisitor) => {
-    await addDoc(collection(db, "visitors"), {
-        
+const addNewVisitor = async(newVisitor) => {
+    console.log(newVisitor)
+    const docRef = await addDoc(collection(db, "visitors"), {
+        visitor: newVisitor
     });
     visitors.value.push(newVisitor)
+    
+    console.log(docRef)
+    console.log("Document written with ID: ", docRef.id);
 }
 
 // const filterVisitors = computed(() => {
