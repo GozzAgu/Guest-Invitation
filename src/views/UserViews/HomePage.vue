@@ -76,7 +76,7 @@
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody v-for="(visitor, index) in filterVisitors" :key="visitor">
+                    <tbody v-for="(visitor, index) in visitors" :key="visitor">
                         <tr class="mb-5">
                             <td class="pt-3"><input :value="visitor" v-model="checked" type="checkbox"/></td>
                             <td class="pt-3">{{ visitor.name }}</td>
@@ -98,10 +98,12 @@
 <script setup>
 import { useStore } from '@/store/store';
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth'
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router';
 import { NButton, NInput, NSpace, NRow, NCol, NStatistic, NCard } from 'naive-ui'
 import CodeModal from '@/components/CodeModal.vue';
+import { collection, getDocs, addDoc } from 'firebase/firestore';
+import { db } from '@/main.js';
 
 const showModal = ref(false);
 const checked = ref([]);
@@ -122,6 +124,14 @@ onMounted(() => {
         }
     });
 });
+
+onMounted(async() => {
+    const querySnapshot = await getDocs(collection(db, 'visitors'));
+    querySnapshot.forEach((doc) => {
+        console.log(doc.id, '=>', doc.data())
+        visitors.value.push(doc.data())
+    })
+})
     
 const handlesignOut = () => {
     signOut(auth)
@@ -130,7 +140,7 @@ const handlesignOut = () => {
     })
 };
 
-const del = (index) => {
+const del = (index) => {    
     if(index > -1) {
         alert('Are you sure you want to delete guest?');
         visitors.value.splice(index, 1);
@@ -138,15 +148,18 @@ const del = (index) => {
     }
 }
 
-const addNewVisitor = (newVisitor) => {
+const addNewVisitor = async (newVisitor) => {
+    await addDoc(collection(db, "visitors"), {
+        
+    });
     visitors.value.push(newVisitor)
 }
 
-const filterVisitors = computed(() => {
-    return visitors.value.filter((visitor) => {
-        return visitor.name.match(search.value);
-    });
-});
+// const filterVisitors = computed(() => {
+//     return visitors.value.filter((visitor) => {
+//         return visitor.name.match(search.value);
+//     });
+// });
 
 const conveyVisitor = () => {
     if(checked.value) {
