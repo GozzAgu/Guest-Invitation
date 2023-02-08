@@ -12,24 +12,20 @@
                 <table class="table table-striped table-hover">
                     <thead class="bg-secondary text-light">
                         <tr>
-                            <th scope="col"></th>
                             <th scope="col">Name</th>
                             <th scope="col">Code</th>
                             <th scope="col">Gender</th>
                             <th scope="col">Time</th>
-                            <th></th>
                         </tr>
                     </thead>
-                    <!-- <tbody v-for="(visitor, index) in filterVisitors" :key="visitor">
+                    <tbody v-for="(visitor) in visitors" :key="visitor">
                         <tr class="mb-5">
-                            <td class="pt-3"><input :value="visitor" v-model="checked" type="checkbox"/></td>
                             <td class="pt-3">{{ visitor.name }}</td>
                             <td class="pt-3">{{ visitor.code }}</td>
                             <td class="pt-3">{{ visitor.gender }}</td>
                             <td class="pt-3">{{ visitor.time}}</td>
-                            <td> <button class="btn" @click="del(index)"><i class="ri-delete-bin-6-fill fs-9 text-danger"></i></button></td>
                         </tr>
-                    </tbody> -->
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -41,6 +37,20 @@
 
 <script setup>
 import { NInput, NSpace } from 'naive-ui'
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '@/main.js';
+import { ref, onMounted } from 'vue'
+
+const visitors = ref([]);
+
+onMounted(async() => {
+    const querySnapshot = await getDocs(collection(db, 'visitors'));
+    querySnapshot.forEach((doc) => {
+        console.log(doc.id, '=>', doc.data())
+        visitors.value.push(doc.data())
+    })
+})
+
 </script>
 
 <style scoped lang="scss">
@@ -74,9 +84,5 @@ import { NInput, NSpace } from 'naive-ui'
 
 .link {
     text-decoration: none;
-}
-
-.convey {
-    cursor: pointer;
 }
 </style>
