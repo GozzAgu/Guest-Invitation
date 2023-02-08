@@ -151,7 +151,7 @@ const del = (index) => {
 const addNewVisitor = async(newVisitor) => {
     console.log(newVisitor)
     const docRef = await addDoc(collection(db, "visitors"), {
-        visitor: newVisitor
+        ...newVisitor
     });
     visitors.value.push(newVisitor)
     
