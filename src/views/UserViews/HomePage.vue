@@ -81,7 +81,7 @@
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody v-for="(visitor, index) in visitors" :key="visitor">
+                    <tbody v-for="(visitor, index) in filterVisitors" :key="visitor">
                         <tr class="mb-5">
                             <td class="pt-3"><input :value="visitor" v-model="checked" type="checkbox"/></td>
                             <td class="pt-3">{{ visitor.name }}</td>
@@ -103,7 +103,7 @@
 <script setup>
 import { useStore } from '@/store/store';
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { useRouter } from 'vue-router';
 import { NButton, NInput, NSpace, NRow, NCol, NStatistic, NCard } from 'naive-ui'
 import CodeModal from '@/components/CodeModal.vue';
@@ -164,11 +164,11 @@ const addNewVisitor = async(newVisitor) => {
     console.log("Document written with ID: ", docRef.id);
 }
 
-// const filterVisitors = computed(() => {
-//     return visitors.value.filter((visitor) => {
-//         return visitor.name.match(search.value);
-//     });
-// });
+const filterVisitors = computed(() => {
+    return visitors.value.filter((visitor) => {
+        return visitor.name.match(search.value);
+    });
+});
 
 const conveyVisitor = () => {
     if(checked.value) {
