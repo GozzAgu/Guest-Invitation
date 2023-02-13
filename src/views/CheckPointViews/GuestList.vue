@@ -18,7 +18,7 @@
                             <th scope="col">Time</th>
                         </tr>
                     </thead>
-                    <tbody v-for="(visitor) in visitors" :key="visitor">
+                    <tbody v-for="(visitor) in filterVisitors" :key="visitor">
                         <tr class="mb-5">
                             <td class="pt-3">{{ visitor.name }}</td>
                             <td class="pt-3">{{ visitor.code }}</td>
@@ -39,9 +39,10 @@
 import { NInput, NSpace } from 'naive-ui'
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '@/main.js';
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 
 const visitors = ref([]);
+const search = ref('');
 
 onMounted(async() => {
     const querySnapshot = await getDocs(collection(db, 'visitors'));
@@ -49,7 +50,13 @@ onMounted(async() => {
         console.log(doc.id, '=>', doc.data())
         visitors.value.push(doc.data())
     })
-})
+});
+
+const filterVisitors = computed(() => {
+    return visitors.value.filter((visitor) => {
+        return visitor.name.match(search.value);
+    });
+});
 
 </script>
 
