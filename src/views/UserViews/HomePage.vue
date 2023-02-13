@@ -8,14 +8,19 @@
                         <p>Welcome, {{ store.name }} </p>
                     </blockquote>
                 </figure>
-                <n-button v-if="isLoggedIn" strong secondary round type="success" class="mb-4" @click="handlesignOut">
-                    Sign Out
-                </n-button>
-                <router-link class="link" to="/signin" v-else>
-                    <n-button strong secondary round type="success" class="mb-4" @click="showModal = true">
-                        Sign In
+                <div v-if="isLoggedIn">
+                    <n-button  strong secondary round type="success" class="mb-4 col-4" @click="handlesignOut">
+                        Sign Out
                     </n-button>
-                </router-link>
+                </div>
+
+                <div  v-else>
+                    <router-link class="link" to="/signin">
+                        <n-button strong secondary round type="success" class="mb-4 col-4">
+                            Sign In
+                        </n-button>
+                    </router-link>
+                </div>
             </div>
         </div>
          <n-button strong secondary round type="success" class="mb-4" @click="showModal = true"> 
@@ -119,6 +124,7 @@ onMounted(() => {
     onAuthStateChanged(auth, (user) => {
         if(user) {
             isLoggedIn.value = true;
+            console.log(user.email)
         } else {
             isLoggedIn.value = false;
         }
@@ -140,9 +146,8 @@ const handlesignOut = () => {
     })
 };
 
-const del = (index) => {    
+const del = async(index) => {    
     if(index > -1) {
-        alert('Are you sure you want to delete guest?');
         visitors.value.splice(index, 1);
         checked.value.splice(index, 1);
     }
