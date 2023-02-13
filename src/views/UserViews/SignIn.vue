@@ -6,9 +6,9 @@
         <form @submit.prevent="signIn" class="form">
             <h1 class="h1 mb-3 fw-normal">Sign In</h1>
             <div class="name">
-                <input v-model="store.name" placeholder="Your name..." type="text" class="form-control" id="floatingInput">
-                <input v-model="store.email" placeholder="Your email @.com..." type="email" class="form-control" id="floatingInput">
-                <input v-model="store.password" placeholder="Your password..." type="password" class="form-control" id="floatingInput">
+                <input v-model="store.name" placeholder="Your name..." type="text" class="form-control">
+                <input v-model="store.email" placeholder="Your email @.com..." type="email" class="form-control">
+                <input v-model="store.password" placeholder="Your password..." type="password" class="form-control">
             </div>
 
             <button class="w-100 btn btn-sm btn-info text-light" type="submit">
@@ -31,7 +31,7 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router';
 import { useStore } from '@/store/store';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
+import { getAuth, signInWithEmailAndPassword, setPersistence, browserSessionPersistence } from 'firebase/auth'
 
 const router = useRouter();
 const store = useStore();
@@ -39,6 +39,8 @@ const errorText = ref(false);
 
 const signIn = () => {
     const auth = getAuth(); 
+    console.log('initialized firebase')
+
     signInWithEmailAndPassword(auth, store.name, store.email, store.password)
     .then((data) => {
         console.log(data);
@@ -47,20 +49,28 @@ const signIn = () => {
     })
     .catch((e) => {
         console.log(e.code);
-        switch(e.code) {
-            // case 'auth/invalid-email':
-            //     errorText.value = 'Invalid email';
-            //     break;
-            // case 'auth/user-not-found':
-            //     errorText.value = 'No User';
-            //     break;
-            // case 'auth/wrong-password':
-            //     errorText.value = 'Incorrect password';
-            //     break;
-            default:
-                errorText.value = 'Incorrect email or password';
-                break;
-        }
+        // switch(e.code) {
+        //     case 'auth/invalid-email':
+        //         errorText.value = 'Invalid email';
+        //         break;
+        //     case 'auth/user-not-found':
+        //         errorText.value = 'No User';
+        //         break;
+        //     case 'auth/wrong-password':
+        //         errorText.value = 'Incorrect password';
+        //         break;
+        //     default:
+        //         errorText.value = 'Incorrect email or password';
+        //         break;
+        // }
+    });
+
+    setPersistence(auth, browserSessionPersistence)
+    .then(() => {
+        return signInWithEmailAndPassword(auth, store.name, store.email, store.password);
+    })
+    .catch(() => {
+        console.log('error')
     });
 };
 </script>

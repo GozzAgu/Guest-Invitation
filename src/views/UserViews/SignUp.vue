@@ -6,9 +6,9 @@
         <form @submit.prevent="signInWithGoogle" class="form">
             <h1 class="h1 mb-3 fw-normal">Welcome</h1>
             <div class="name">
-                <input v-model="store.name" placeholder="Your name..." type="text" class="form-control" id="floatingInput">
-                <input v-model="store.email" placeholder="Your email @.com..." type="email" class="form-control" id="floatingInput">
-                <input v-model="store.password" placeholder="Your password..." type="password" class="form-control" id="floatingInput">
+                <input v-model="store.name" placeholder="Your name..." type="text" class="form-control">
+                <input v-model="store.email" placeholder="Your email @.com..." type="email" class="form-control">
+                <input v-model="store.password" placeholder="Your password..." type="password" class="form-control">
             </div>
 
             <button @click="signUp" class="w-100 btn btn-sm btn-info text-light" type="submit">
@@ -32,24 +32,26 @@ import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
 
 const router = useRouter()
 const store = useStore()
-
 const errorText = ref(false)
 
 const signUp = () => {
     createUserWithEmailAndPassword(getAuth(), store.email, store.password)
     .then((data) => {
-        console.log(data);
-        router.push({name:'home', 
-                    params: {name: store.name}
+        console.log(data.user);
+        router.push({
+            name:'home', 
+            params: {
+                name: store.name
+            }
         })
     })
     .catch((e) => {
         console.log(e)
-        switch(e.code) {
-            default:
-                errorText.value = 'Fill in your credentials';
-                break;
-        }
+        // switch(e.code) {
+        //     default:
+        //         errorText.value = 'Fill in your credentials';
+        //         break;
+        // }
     });
 };
 </script>
