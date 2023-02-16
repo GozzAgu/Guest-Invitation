@@ -1,7 +1,7 @@
 <template>
     <div class="bg">
         <div>
-            <img class="logo" src="@/assets/logo.png"/>
+            <i class="ri-community-fill fs-1 text-success"></i>
         </div>
         <form @submit.prevent="signIn" class="form">
             <h1 class="h1 mb-3 fw-normal">Forgot Password</h1>
