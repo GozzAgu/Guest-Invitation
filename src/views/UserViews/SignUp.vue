@@ -1,7 +1,7 @@
 <template>
     <div class="bg">
         <div>
-            <img class="logo" src="@/assets/logo.png"/>
+            <i class="ri-community-fill fs-1 text-success"></i>
         </div>
         <form @submit.prevent="signInWithGoogle" class="form">
             <h1 class="h1 mb-3 fw-normal">Welcome</h1>
@@ -39,7 +39,7 @@ const signUp = () => {
     .then((data) => {
         console.log(data.user);
         router.push({
-            name:'home', 
+            name:'home',
             params: {
                 name: store.name
             }

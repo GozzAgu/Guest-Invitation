@@ -4,7 +4,6 @@
       <i v-if="mode" class="ri-contrast-2-fill"></i>
       <i v-else class="ri-contrast-2-line"></i>
     </button>
-    
     <router-view/>
   </div>
 </template>
