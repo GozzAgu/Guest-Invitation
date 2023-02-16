@@ -1,11 +1,23 @@
 <template>
-  <div>
-
+  <div :class="[mode ? 'dark-mode' : '']">
+    <button @click="toggle" class="btn btn-success mt-2" >
+      <i v-if="mode" class="ri-contrast-2-fill"></i>
+      <i v-else class="ri-contrast-2-line"></i>
+    </button>
+    
     <router-view/>
   </div>
 </template>
 
 <script setup>
+import {ref} from 'vue'
+const mode = ref(true);
+const iconShow = ref(false)
+
+const toggle = () => {
+  mode.value = !mode.value
+  iconShow.value = !iconShow.value
+}
 
 </script>
 
@@ -18,26 +30,7 @@
   color: #2c3e50;
 }
 
-nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
-
-.app {
-  background-color: white;
-  color: rgb(38, 38, 97);
-}
-
-.dark {
-  background-color: rgb(38, 38, 97);
-  color: white;
+.dark-mode {
+  background-color: #2c3e50;
 }
 </style>
