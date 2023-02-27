@@ -4,7 +4,6 @@
             <div class="card p-2 mt-5 shadow">
                 <figure class="p-3 mb-0">
                     <blockquote class="blockquote">
-                        <!-- <img class="logo mb-3" src="@/assets/logo.png" /> -->
                         <i class="ri-community-fill fs-1 text-success"></i>
                         <p>Welcome, {{ store.name }} </p>
                     </blockquote>
@@ -82,14 +81,14 @@
                             <th scope="col"></th>
                         </tr>
                     </thead>
-                    <tbody v-for="(visitor, index) in filterVisitors" :key="visitor">
+                    <tbody v-for="(visitor) in filterVisitors" :key="visitor">
                         <tr class="mb-5">
                             <td class="pt-3"><input :value="visitor" v-model="checked" type="checkbox"/></td>
                             <td class="pt-3">{{ visitor.name }}</td>
                             <td class="pt-3">{{ visitor.code }}</td>
                             <td class="pt-3">{{ visitor.gender }}</td>
                             <td class="pt-3">{{ visitor.time}}</td>
-                            <td> <button class="btn" @click="del(index)"><i class="ri-delete-bin-6-fill fs-9 text-danger"></i></button></td>
+                            <!-- <td> <button class="btn" @click="del(index)"><i class="ri-delete-bin-6-fill fs-9 text-danger"></i></button></td> -->
                         </tr>
                     </tbody>
                 </table>
@@ -147,12 +146,12 @@ const handlesignOut = () => {
     })
 };
 
-const del = async(index) => {    
-    if(index > -1) {
-        visitors.value.splice(index, 1);
-        checked.value.splice(index, 1);
-    }
-}
+// const del = async(index) => {    
+//     if(index > -1) {
+//         visitors.value.splice(index, 1);
+//         checked.value.splice(index, 1);
+//     }
+// }
 
 const addNewVisitor = async(newVisitor) => {
     console.log(newVisitor)
